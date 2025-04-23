@@ -42,7 +42,7 @@ credentials.json         # File xác thực Google API
 README.md
 ✏️ Cấu hình RTSP và Google Sheet
 📸 main.py
-RTSP_URL = "rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/202/"
+RTSP_URL = "rtsp:"
 📄 sheets.py
 spreadsheet = client.open("ContainerTracking")  # Tên Google Sheet
 sheet = spreadsheet.sheet1                      # Sheet đầu tiên
