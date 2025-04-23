@@ -20,9 +20,8 @@ Kết nối mạng và có quyền truy cập camera RTSP Hikvision
 
 🛠️ Cài đặt thư viện
 bash
-Sao chép
-Chỉnh sửa
 pip install ultralytics easyocr opencv-python-headless fastapi uvicorn gspread oauth2client
+
 🔐 Google Sheets API
 Truy cập: https://console.cloud.google.com/
 
@@ -33,9 +32,6 @@ Tạo Service Account, tạo key JSON và tải về → lưu thành credentials
 Chia sẻ Google Sheet với email trong file credentials.json
 
 📁 Cấu trúc thư mục
-css
-Sao chép
-Chỉnh sửa
 app/
 ├── main.py              # FastAPI app khởi động camera + nhận diện
 ├── detect.py            # Nhận diện chuyển động + OCR + bounding box
@@ -46,26 +42,16 @@ credentials.json         # File xác thực Google API
 README.md
 ✏️ Cấu hình RTSP và Google Sheet
 📸 main.py
-python
-Sao chép
-Chỉnh sửa
 RTSP_URL = "rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/202/"
 📄 sheets.py
-python
-Sao chép
-Chỉnh sửa
 spreadsheet = client.open("ContainerTracking")  # Tên Google Sheet
 sheet = spreadsheet.sheet1                      # Sheet đầu tiên
 🚀 Chạy ứng dụng
 bash
-Sao chép
-Chỉnh sửa
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 Sau đó mở trình duyệt:
 
 bash
-Sao chép
-Chỉnh sửa
 http://localhost:8000/start
 Ứng dụng sẽ:
 
@@ -76,6 +62,8 @@ Vẽ vùng chuyển động → khung đỏ
 Vùng có mã container → khung xanh và overlay mã
 
 Gửi mã OCR lên Google Sheet nếu không trùng lặp trong 2 phút gần nhất
+
+Để thoát ứng dụng nhấn q
 
 📊 Cột dữ liệu trong Google Sheet
 
