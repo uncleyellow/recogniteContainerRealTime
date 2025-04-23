@@ -4,7 +4,7 @@ from app.sheets import upload_to_sheet
 
 app = FastAPI()
 
-RTSP_URL = "rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/202/"
+RTSP_URL = "rtsp:"
 
 @app.get("/")
 def home():
