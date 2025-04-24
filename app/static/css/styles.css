@@ -1,0 +1,81 @@
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.camera-card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300;
+}
+
+.camera-card:hover {
+    @apply shadow-lg transform translate-y-[-2px];
+}
+
+.camera-header {
+    @apply p-4 bg-gray-50 border-b border-gray-200 flex justify-between items-center;
+}
+
+.camera-feed {
+    @apply w-full h-[400px] object-cover bg-black;
+}
+
+.status-badge {
+    @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.status-running {
+    @apply bg-green-100 text-green-800;
+    animation: pulse 2s infinite;
+}
+
+.status-stopped {
+    @apply bg-red-100 text-red-800;
+}
+
+.status-error {
+    @apply bg-yellow-100 text-yellow-800;
+}
+
+.controls {
+    @apply p-4 flex justify-end space-x-3;
+}
+
+.btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2;
+}
+
+.btn-start {
+    @apply bg-green-500 text-white hover:bg-green-600;
+}
+
+.btn-stop {
+    @apply bg-red-500 text-white hover:bg-red-600;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.stat-card p {
+    margin: 0.5rem 0 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2563eb;
+}

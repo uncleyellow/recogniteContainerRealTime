@@ -52,7 +52,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 Sau đó mở trình duyệt:
 
 bash
-http://localhost:8000/start
+http://localhost:8000/start/CONG-VAO-DA-1
 Ứng dụng sẽ:
 
 Mở camera trực tiếp từ Hikvision
@@ -69,3 +69,6 @@ Gửi mã OCR lên Google Sheet nếu không trùng lặp trong 2 phút gần nh
 
 Mã Container	Text nhận diện được	Thời gian gửi lên	Độ tin cậy (%)
 TCNU1234567	        TCNU1234567	     2025-04-23 10:55	    93.75
+
+
+rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/202/
