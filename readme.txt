@@ -53,6 +53,7 @@ Sau đó mở trình duyệt:
 
 bash
 http://localhost:8000/start/CONG-VAO-DA-1
+http://127.0.0.1:8000/view
 Ứng dụng sẽ:
 
 Mở camera trực tiếp từ Hikvision

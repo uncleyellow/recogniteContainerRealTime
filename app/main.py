@@ -58,7 +58,7 @@ frame_queues: Dict[str, queue.Queue] = {}
 # Cấu hình RTSP
 RTSP_URLS = {
     "CONG-VAO-DA-1": "rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/202/",
-    "CAMERA-NAME": "rtsp://username:password@ip:port/path",
+#    "CONG-VAO-DA-2": "rtsp://MrKhanhKHDT:ratraco@118@14.232.166.207:1554/Streaming/Channels/201/",
 #    "CAM2": "rtsp://user:pass@ip2/Streaming/Channels/2/",
 #    "CAM3": "rtsp://user:pass@ip3/Streaming/Channels/3/",
 #    "CAM4": "rtsp://user:pass@ip4/Streaming/Channels/4/"

@@ -1,13 +1,20 @@
 {
-    "total_detections": 0,
+    "total_detections": 64,
     "successful_detections": 0,
-    "failed_detections": 0,
+    "failed_detections": 64,
     "average_confidence": 0,
-    "last_hour_stats": {},
+    "last_hour_stats": {
+        "2025-04-25 09:00": {
+            "total": 64,
+            "successful": 0,
+            "failed": 64,
+            "avg_confidence": 0
+        }
+    },
     "camera_status": {
         "CONG-VAO-DA-1": {
             "status": "running",
-            "last_update": "2025-04-24 15:57:12",
+            "last_update": "2025-04-25 09:33:16",
             "error_message": null
         }
     },

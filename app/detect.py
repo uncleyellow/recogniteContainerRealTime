@@ -148,23 +148,24 @@ def preprocess_image(image):
 
 # 3. Cải thiện hàm is_valid_container_code
 def is_valid_container_code(text):
+    return True
     # Thêm các pattern phổ biến khác của mã container
-    patterns = [
-        r'[A-Z]{4}\d{7}',  # Pattern hiện tại
-        r'[A-Z]{4}[0-9]{6}[A-Z]',  # Pattern thay thế
-        r'[A-Z]{3}[UJZ]\d{7}'  # Pattern cho container đặc biệt
-    ]
+    #patterns = [
+    #    r'[A-Z]{4}\d{7}',  # Pattern hiện tại
+    #    r'[A-Z]{4}[0-9]{6}[A-Z]',  # Pattern thay thế
+    #    r'[A-Z]{3}[UJZ]\d{7}'  # Pattern cho container đặc biệt
+    #]
     
     # Kiểm tra các pattern tiêu chuẩn trước
-    if any(re.fullmatch(pattern, text) for pattern in standard_patterns):
-        return True
+    #if any(re.fullmatch(pattern, text) for pattern in standard_patterns):
+    #    return True
         
     # Thêm điều kiện cho các text khác
     # Text phải có ít nhất 4 ký tự và chỉ chứa chữ cái, số và khoảng trắng
-    if len(text) >= 4 and re.match(r'^[A-Z0-9\s]+$', text):
-        return True
+    #if len(text) >= 4 and re.match(r'^[A-Z0-9\s]+$', text):
+    #    return True
         
-    return False
+    #return False
 
 # 4. Thêm xử lý lỗi và logging
 logging.basicConfig(
@@ -289,7 +290,7 @@ def detect_and_display(rtsp_url, upload_callback, camera_name="CAM", stop_event=
                     
                     # Vẽ khung chuyển động
                     cv2.rectangle(display_frame, (x, y), (x + w, y + h), (0, 0, 255), 2)
-                    
+                    #cv2.putText(display_frame,'Vùng chuyển động' ,(x, y), (x + w, y + h), (0, 0, 255), 2)
                     # Kiểm tra từng xe tải
                     for truck in truck_regions:
                         tx1, ty1, tx2, ty2 = truck['container_box']  # Lấy vùng container
