@@ -453,3 +453,167 @@ function addAlertSystem() {
         notificationDuration: 5000
     });
 }
+
+// Camera management
+let cameraStates = {
+    'ENTRANCE': false,
+    'EXIT': false
+};
+
+// Update camera status
+function updateCameraStatus(cameraId, status) {
+    const statusElement = document.getElementById(`camera${cameraId === 'ENTRANCE' ? '1' : '2'}-status`);
+    statusElement.textContent = `Trạng thái: ${status}`;
+}
+
+// Start camera
+async function startCamera(cameraId) {
+    try {
+        const response = await fetch(`/start/${cameraId}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+            cameraStates[cameraId] = true;
+            updateCameraStatus(cameraId, 'Đang chạy');
+            
+            // Start video feed
+            const feedElement = document.getElementById(`camera${cameraId === 'ENTRANCE' ? '1' : '2'}-feed`);
+            feedElement.src = `/video_feed/${cameraId}`;
+            
+            // Start polling for detection results
+            startPollingDetections(cameraId);
+        }
+    } catch (error) {
+        console.error(`Error starting camera ${cameraId}:`, error);
+        updateCameraStatus(cameraId, 'Lỗi khởi động');
+    }
+}
+
+// Stop camera
+async function stopCamera(cameraId) {
+    try {
+        const response = await fetch(`/stop/${cameraId}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+            cameraStates[cameraId] = false;
+            updateCameraStatus(cameraId, 'Đã dừng');
+            
+            // Stop video feed
+            const feedElement = document.getElementById(`camera${cameraId === 'ENTRANCE' ? '1' : '2'}-feed`);
+            feedElement.src = '';
+        }
+    } catch (error) {
+        console.error(`Error stopping camera ${cameraId}:`, error);
+    }
+}
+
+// Capture image
+async function captureImage(cameraId) {
+    try {
+        const response = await fetch(`/capture/${cameraId}`);
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Update detection results
+            updateDetectionResults(cameraId, data);
+            
+            // Add to recent detections
+            addRecentDetection(cameraId, data);
+        }
+    } catch (error) {
+        console.error(`Error capturing image from camera ${cameraId}:`, error);
+    }
+}
+
+// Update detection results
+function updateDetectionResults(cameraId, data) {
+    const cameraNum = cameraId === 'ENTRANCE' ? '1' : '2';
+    const isPlate = cameraId === 'ENTRANCE';
+    
+    // Update detection text
+    const textElement = document.getElementById(`camera${cameraNum}-${isPlate ? 'plate' : 'container'}`);
+    textElement.textContent = data.code || '-';
+    
+    // Update confidence
+    const confidenceElement = document.getElementById(`camera${cameraNum}-confidence`);
+    confidenceElement.textContent = data.confidence ? `${data.confidence}%` : '-';
+    
+    // Update time
+    const timeElement = document.getElementById(`camera${cameraNum}-time`);
+    timeElement.textContent = data.timestamp || '-';
+}
+
+// Add to recent detections
+function addRecentDetection(cameraId, data) {
+    const recentDetections = document.getElementById('recent-detections');
+    const isPlate = cameraId === 'ENTRANCE';
+    
+    const detectionElement = document.createElement('div');
+    detectionElement.className = 'bg-gray-50 p-4 rounded-lg';
+    detectionElement.innerHTML = `
+        <div class="flex justify-between items-center mb-2">
+            <span class="font-medium">${isPlate ? 'Biển số' : 'Mã container'}:</span>
+            <span class="text-blue-600">${data.code}</span>
+        </div>
+        <div class="flex justify-between items-center mb-2">
+            <span class="font-medium">Độ tin cậy:</span>
+            <span class="text-green-600">${data.confidence}%</span>
+        </div>
+        <div class="flex justify-between items-center">
+            <span class="font-medium">Thời gian:</span>
+            <span class="text-gray-600">${data.timestamp}</span>
+        </div>
+    `;
+    
+    // Add to the beginning of the list
+    recentDetections.insertBefore(detectionElement, recentDetections.firstChild);
+    
+    // Keep only the last 10 detections
+    while (recentDetections.children.length > 10) {
+        recentDetections.removeChild(recentDetections.lastChild);
+    }
+}
+
+// Start polling for detection results
+function startPollingDetections(cameraId) {
+    if (!cameraStates[cameraId]) return;
+    
+    fetch(`/detection_results/${cameraId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.hasNewDetection) {
+                updateDetectionResults(cameraId, data);
+                addRecentDetection(cameraId, data);
+            }
+        })
+        .catch(error => console.error(`Error polling detections for camera ${cameraId}:`, error))
+        .finally(() => {
+            if (cameraStates[cameraId]) {
+                setTimeout(() => startPollingDetections(cameraId), 1000);
+            }
+        });
+}
+
+// Start all cameras
+async function startAllCameras() {
+    await startCamera('ENTRANCE');
+    await startCamera('EXIT');
+}
+
+// Stop all cameras
+async function stopAllCameras() {
+    await stopCamera('ENTRANCE');
+    await stopCamera('EXIT');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Set up event listeners
+    document.getElementById('startAll').addEventListener('click', startAllCameras);
+    document.getElementById('stopAll').addEventListener('click', stopAllCameras);
+    
+    // Initialize camera status
+    updateCameraStatus('ENTRANCE', 'Đang chờ...');
+    updateCameraStatus('EXIT', 'Đang chờ...');
+});

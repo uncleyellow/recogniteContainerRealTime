@@ -34,8 +34,9 @@ Chia sẻ Google Sheet với email trong file credentials.json
 📁 Cấu trúc thư mục
 app/
 ├── main.py              # FastAPI app khởi động camera + nhận diện
-├── detect.py            # Nhận diện chuyển động + OCR + bounding box
+├── detect.py            # Nhận diện chuyển động + OCR + bounding box qua 2 camera ra/vào
 ├── sheets.py            # Kết nối và gửi dữ liệu lên Google Sheets
+├── sensor.py            # 2 cái Cảm biến quang ra/vào nhận diện xe ra vào bằng taker qua usb
 ├── models/
 │   └── yolov8_container.pt  # Model YOLOv8 tùy chỉnh
 credentials.json         # File xác thực Google API
@@ -66,9 +67,9 @@ Gửi mã OCR lên Google Sheet nếu không trùng lặp trong 2 phút gần nh
 
 Để thoát ứng dụng nhấn q
 
-📊 Cột dữ liệu trong Google Sheet
+📊 Cột dữ liệu trong Google Sheet hoặc trên excel ngay hiện tại hoặc trên index.html
 
-Mã Container	Text nhận diện được	Thời gian gửi lên	Độ tin cậy (%)
+Mã Container	     Biến số xe	     Thời gian gửi lên	 Độ tin cậy (%)
 TCNU1234567	        TCNU1234567	     2025-04-23 10:55	    93.75
 
 

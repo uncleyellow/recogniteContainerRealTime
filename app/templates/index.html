@@ -109,8 +109,99 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="camera-grid">
-            <!-- Camera cards will be inserted here by JavaScript -->
+        <!-- Camera Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Camera 1 - License Plate -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-blue-600 text-white flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Camera 1 - Nhận diện biển số xe</h3>
+                    <div class="flex space-x-2">
+                        <button onclick="startCamera('ENTRANCE')" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded">
+                            Bắt đầu
+                        </button>
+                        <button onclick="stopCamera('ENTRANCE')" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
+                            Dừng
+                        </button>
+                        <button onclick="captureImage('ENTRANCE')" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded">
+                            Chụp ảnh
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img id="camera1-feed" src="" alt="Camera 1 Feed" class="w-full h-[480px] object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
+                        <p id="camera1-status">Trạng thái: Đang chờ...</p>
+                    </div>
+                </div>
+                <!-- Live Detection Results -->
+                <div class="p-4 border-t">
+                    <h4 class="font-semibold mb-2">Kết quả nhận diện:</h4>
+                    <div id="camera1-results" class="space-y-2">
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Biển số:</span>
+                            <span id="camera1-plate" class="text-blue-600">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Độ tin cậy:</span>
+                            <span id="camera1-confidence" class="text-green-600">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Thời gian:</span>
+                            <span id="camera1-time" class="text-gray-600">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera 2 - Container -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-green-600 text-white flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">Camera 2 - Nhận diện mã container</h3>
+                    <div class="flex space-x-2">
+                        <button onclick="startCamera('EXIT')" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded">
+                            Bắt đầu
+                        </button>
+                        <button onclick="stopCamera('EXIT')" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
+                            Dừng
+                        </button>
+                        <button onclick="captureImage('EXIT')" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded">
+                            Chụp ảnh
+                        </button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img id="camera2-feed" src="" alt="Camera 2 Feed" class="w-full h-[480px] object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-2">
+                        <p id="camera2-status">Trạng thái: Đang chờ...</p>
+                    </div>
+                </div>
+                <!-- Live Detection Results -->
+                <div class="p-4 border-t">
+                    <h4 class="font-semibold mb-2">Kết quả nhận diện:</h4>
+                    <div id="camera2-results" class="space-y-2">
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Mã container:</span>
+                            <span id="camera2-container" class="text-blue-600">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Độ tin cậy:</span>
+                            <span id="camera2-confidence" class="text-green-600">-</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-50 p-2 rounded">
+                            <span class="font-medium">Thời gian:</span>
+                            <span id="camera2-time" class="text-gray-600">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Detections -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold mb-4">Nhận diện gần đây</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="recent-detections">
+                <!-- Recent detections will be added here dynamically -->
+            </div>
         </div>
 
         <!-- Container Data Table -->

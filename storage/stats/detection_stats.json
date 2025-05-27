@@ -14,9 +14,23 @@
     "camera_status": {
         "CONG-VAO-DA-1": {
             "status": "running",
-            "last_update": "2025-05-09 09:55:02",
+            "last_update": "2025-05-26 10:34:36",
+            "error_message": null
+        },
+        "ENTRANCE": {
+            "status": "running",
+            "last_update": "2025-05-26 11:57:44",
+            "error_message": null
+        },
+        "EXIT": {
+            "status": "running",
+            "last_update": "2025-05-26 11:57:52",
             "error_message": null
         }
+    },
+    "latest_detections": {
+        "ENTRANCE": null,
+        "EXIT": null
     },
     "runtime_params": {
         "MOTION_THRESHOLD": 2,
